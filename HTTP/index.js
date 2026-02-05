@@ -20,6 +20,7 @@ const server = http.createServer((req, res) => {
         res.end("This is Service page")
         break;
     default:
+      res.end("404 page not found")
         break;
   }
 });
