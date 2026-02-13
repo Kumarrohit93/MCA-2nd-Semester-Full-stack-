@@ -1,30 +1,16 @@
-const http = require("http");
-const fs = require("fs");
+const express = require("express")
+const app = express()
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/favicon.ico") return res.end();
-  const now = new Date(Date.now())
-  const log = `${now.toString()} New Request is received from localhost:3000${req.url}\n`;
-  fs.appendFile("log.txt", log, (err, data) => {
-    res.end("Hello from server!");
-  });
+app.get("/home", (req, res) => {
+  const username = req.query.username;
+  res.send(`Welcome to home page, ${username}`)
+})
 
-  switch (req.url) {
-    case "/home":
-        res.end("This is Home page")
-        break;
-    case "/contact":
-        res.end("This is Contact page")
-        break;
-    case "/services":
-        res.end("This is Service page")
-        break;
-    default:
-      res.end("404 page not found")
-        break;
-  }
-});
+// app.get("/search", (req, res) => {
+//   res.send("You are on Search page")
+// })
 
-server.listen(3000, () => {
+
+app.listen(3000, () => {
   console.log("Server is listening at port 3000");
 });
